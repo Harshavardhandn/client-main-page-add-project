@@ -19,6 +19,12 @@ export const Navigation = () => {
               My Bids
             </Button>
             <Button
+              variant="outline"
+              onClick={() => navigate("/my-projects")}
+            >
+              My Projects
+            </Button>
+            <Button
               onClick={() => navigate("/add-project")}
             >
               Add Project
