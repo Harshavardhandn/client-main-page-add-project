@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Bids from "./pages/Bids";
 import AddProject from "./pages/AddProject";
+import UpdateProfile from "./pages/UpdateProfile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/bids" element={<Bids />} />
           <Route path="/add-project" element={<AddProject />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
