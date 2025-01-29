@@ -17,9 +17,21 @@ const AddProject = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would send data to an API
+    const projects = JSON.parse(localStorage.getItem("clientProjects") || "[]");
+    const newProject = {
+      id: Date.now().toString(),
+      ...formData,
+      status: "pending",
+    };
+    projects.push(newProject);
+    localStorage.setItem("clientProjects", JSON.stringify(projects));
     toast.success("Project added successfully!");
     navigate("/dashboard");
+  };
+
+  const handlePayment = () => {
+    toast.success("Processing payment...");
+    // Payment processing logic would go here
   };
 
   const handleChange = (
@@ -93,9 +105,19 @@ const AddProject = () => {
               className="mt-1"
             />
           </div>
-          <Button type="submit" className="w-full">
-            Add Project
-          </Button>
+          <div className="flex gap-4">
+            <Button type="submit" className="flex-1">
+              Add Project
+            </Button>
+            <Button 
+              type="button" 
+              onClick={handlePayment}
+              variant="secondary"
+              className="flex-1"
+            >
+              Process Payment
+            </Button>
+          </div>
         </form>
       </div>
     </div>

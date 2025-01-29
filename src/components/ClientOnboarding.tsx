@@ -3,16 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 export const ClientOnboarding = () => {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [skills, setSkills] = useState("");
-  const [experience, setExperience] = useState("");
-  const [availability, setAvailability] = useState("");
   const [photo, setPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string>("");
 
@@ -30,17 +27,14 @@ export const ClientOnboarding = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim() || !email.trim() || !photo) {
+    if (!firstName.trim() || !lastName.trim() || !email.trim() || !photo) {
       toast.error("Please fill in all required fields");
       return;
     }
-    // Store client data
-    localStorage.setItem("clientName", fullName);
+    localStorage.setItem("clientFirstName", firstName);
+    localStorage.setItem("clientLastName", lastName);
     localStorage.setItem("clientEmail", email);
     localStorage.setItem("clientPhoto", photoPreview);
-    localStorage.setItem("clientSkills", skills);
-    localStorage.setItem("clientExperience", experience);
-    localStorage.setItem("clientAvailability", availability);
     toast.success("Profile created successfully!");
     navigate("/dashboard");
   };
@@ -58,10 +52,10 @@ export const ClientOnboarding = () => {
               <img
                 src={photoPreview}
                 alt="Preview"
-                className="w-32 h-32 rounded-full object-cover border-2 border-gray-200 shadow-lg"
+                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-lg"
               />
             ) : (
-              <div className="w-32 h-32 rounded-full bg-gray-100 flex items-center justify-center border-2 border-gray-200">
+              <div className="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center border-2 border-gray-200">
                 <span className="text-gray-400">Upload Photo</span>
               </div>
             )}
@@ -76,12 +70,23 @@ export const ClientOnboarding = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="fullName">Full Name</Label>
+            <Label htmlFor="firstName">First Name</Label>
             <Input
-              id="fullName"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              placeholder="John Doe"
+              id="firstName"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="John"
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="lastName">Last Name</Label>
+            <Input
+              id="lastName"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Doe"
               required
             />
           </div>
@@ -95,37 +100,6 @@ export const ClientOnboarding = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="john@example.com"
               required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="skills">Skills</Label>
-            <Input
-              id="skills"
-              value={skills}
-              onChange={(e) => setSkills(e.target.value)}
-              placeholder="React, Node.js, TypeScript..."
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="experience">Experience</Label>
-            <Textarea
-              id="experience"
-              value={experience}
-              onChange={(e) => setExperience(e.target.value)}
-              placeholder="Describe your professional experience..."
-              className="min-h-[100px]"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="availability">Availability</Label>
-            <Input
-              id="availability"
-              value={availability}
-              onChange={(e) => setAvailability(e.target.value)}
-              placeholder="Full-time, Part-time, etc."
             />
           </div>
 
